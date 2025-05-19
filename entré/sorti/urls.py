@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 from .forms import CustomAuthenticationForm  # Si vous utilisez un formulaire personnalisé
 
-app_name = 'sorti'  # Namespace pour les URLs
+#app_name = 'sorti'  # Namespace pour les URLs
 
 urlpatterns = [
     # Page d'accueil

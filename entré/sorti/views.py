@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserRegistrationForm, ContactForm
+from .forms import UserRegistrationForm, ContactForm, CustomAuthenticationForm
+
 
 def home(request):
     return render(request, 'home.html')
@@ -14,10 +15,10 @@ def register(request):
             user = form.save()
             login(request, user)
             messages.success(request, 'Inscription réussie!')
-            return redirect('sorti:home')
+            return redirect('home')
     else:
         form = UserRegistrationForm()
-    return render(request, 'sorti/register.html', {'form': form})
+    return render(request, 'register.html', {'form': form})
 
 def custom_login(request):
     if request.method == 'POST':
@@ -28,19 +29,19 @@ def custom_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('sorti:profile')
+                return redirect('profile')
     else:
         form = CustomAuthenticationForm()
-    return render(request, 'sorti/login.html', {'form': form})
+    return render(request, 'login.html', {'form': form})
 
 @login_required
 def custom_logout(request):
     logout(request)
-    return redirect('sorti:home')
+    return redirect('home')
 
 @login_required
 def profile(request):
-    return render(request, 'sorti/profile.html')
+    return render(request, 'profile.html')
 
 def contact(request):
     if request.method == 'POST':
@@ -48,7 +49,7 @@ def contact(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Message envoyé avec succès!')
-            return redirect('sorti:contact')
+            return redirect('contact')
     else:
         form = ContactForm()
-    return render(request, 'sorti/contact.html', {'form': form})
+    return render(request, 'contact.html', {'form': form})
