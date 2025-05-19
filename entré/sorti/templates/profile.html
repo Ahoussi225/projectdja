@@ -1,0 +1,116 @@
+{% extends "sorti/base.html" %}
+
+{% block title %}Mon Profil - Sorti{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Sidebar -->
+    <div class="col-lg-3 mb-4">
+        <div class="card shadow">
+            <div class="card-body text-center">
+                <div class="position-relative d-inline-block">
+                    <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=4e73df&color=fff&size=150" 
+                         class="rounded-circle mb-3" width="150" height="150" alt="Avatar">
+                    <button class="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <h4>{{ user.username }}</h4>
+                <p class="text-muted">{{ user.email }}</p>
+                
+                <hr>
+                
+                <div class="d-grid gap-2">
+                    <a href="#" class="btn btn-outline-primary">
+                        <i class="fas fa-edit me-1"></i> Modifier le profil
+                    </a>
+                    <a href="{% url 'sorti:logout' %}" class="btn btn-outline-danger">
+                        <i class="fas fa-sign-out-alt me-1"></i> Déconnexion
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="col-lg-9">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-user-cog me-1"></i> Informations du compte
+                </h5>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Nom d'utilisateur</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" value="{{ user.username }}" readonly>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Email</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" value="{{ user.email }}" readonly>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Date d'inscription</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" 
+                                   value="{{ user.date_joined|date:'d/m/Y H:i' }}" readonly>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Dernière connexion</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" 
+                                   value="{{ user.last_login|date:'d/m/Y H:i'|default:'Jamais' }}" readonly>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-lock me-1"></i> Sécurité
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Pour modifier votre mot de passe, utilisez le formulaire ci-dessous.
+                </div>
+                
+                <form>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Mot de passe actuel</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" placeholder="••••••••">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Nouveau mot de passe</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" placeholder="••••••••">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Confirmation</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" placeholder="••••••••">
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i> Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
